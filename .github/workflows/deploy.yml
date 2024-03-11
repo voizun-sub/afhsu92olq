@@ -1,4 +1,4 @@
-name: Build
+name: Build macOS
 
 on:
     workflow_dispatch:
@@ -16,6 +16,18 @@ jobs:
           - run: sudo hdiutil detach -force /Volumes/Install*
           - run: sudo hdiutil convert /tmp/Sonoma.dmg -format UDTO -o Sonoma.cdr
           - run: sudo mv Sonoma.cdr Sonoma.iso
-          - run: brew install oras || true
-          - run: oras login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} || true
-          - run: oras push ghcr.io/${{github.repository}}:latest --artifact-type application/vnd.acme.rocket.config Sonoma.iso
+          - run: zstd -11 Sonoma.iso -o Sonoma.iso.zst
+          - name: split iso
+            run: split -b 1.8G -d Sonoma.iso.zst Sonoma.iso.zst-
+          - name: Create Release
+            run: |
+                gh release create ${GITHUB_REF##*/} -t "Releases ${GITHUB_REF##*/}"
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          - name: Upload Release Asset
+            run: |
+                gh release upload ${GITHUB_REF##*/} Sonoma.iso.zst-*
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
