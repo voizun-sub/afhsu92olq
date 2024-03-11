@@ -8,6 +8,29 @@ jobs:
         runs-on: macos-13
         steps:
           - run: wget https://swcdn.apple.com/content/downloads/47/20/052-62010-A_IGTQLDJJXD/vu00gjm2kgj82xrpy4z05zgy1hm2e7in1x/InstallAssistant.pkg
-          - run: pkgutil --expand-full InstallAssistant.pkg ./
-          - run: ls -al
+          - run: mkdir temp
+          - run: pkgutil --expand-full InstallAssistant.pkg ./temp/
+          - run: ls -al && tree
+          - run: softwareupdate --install-rosetta --agree-to-license
+          - run: hdiutil create -o /tmp/Ventura -size 20000m -volname Ventura -layout SPUD -fs HFS+J
+          - run: hdiutil attach /tmp/Ventura.dmg -noverify -mountpoint /Volumes/Ventura
+          - run: arch -arch x86_64 /bin/bash -c "$(sudo ./temp/Install\ macOS\ Ventura*.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura)"
+          - run: sudo hdiutil detach /Volumes/Install\ macOS\ Ventura*
+          - run: sudo hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/tmp/Ventura.cdr
+          - run: sudo mv ~/tmp/Ventura.cdr ~/tmp/Ventura.iso
+          - run: brew install zstd
+          - run: zstd -11 ~/tmp/Ventura.iso -o ~/tmp/Ventura.iso.zst
+          - run: split -b 1.5G -d Ventura.iso.zst Ventura.iso.zst-
+          - name: Create Release
+            run: |
+                gh release create ${GITHUB_REF##*/} -t "Releases ${GITHUB_REF##*/}"
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          - name: Upload Release Asset
+            run: |
+                gh release upload ${GITHUB_REF##*/} Ventura.iso.zst-*
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
