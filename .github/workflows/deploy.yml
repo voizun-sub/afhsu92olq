@@ -1,0 +1,13 @@
+name: Build
+
+on:
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: macos-13
+        steps:
+          - run: wget https://swcdn.apple.com/content/downloads/47/20/052-62010-A_IGTQLDJJXD/vu00gjm2kgj82xrpy4z05zgy1hm2e7in1x/InstallAssistant.pkg
+          - run: pkgutil --expand-full InstallAssistant.pkg ./
+          - run: ls -al
+          
