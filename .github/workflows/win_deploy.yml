@@ -7,16 +7,31 @@ jobs:
     build:
         runs-on: window-latest
         permissions: write-all
+        outputs:
+            output1: ${{ steps.step1.outputs.test }}
         steps:
           - uses: actions/checkout@v4
           - run: tar -acf *_convert.zip
           - run: ./uup_download_windows.cmd
-          - run: |
-            set VERSION="1.1.0" & ^
-            curl.exe -sLO  "https://github.com/oras-project/oras/releases/download/v%VERSION%/oras_%VERSION%_windows_amd64.zip" & ^
-            tar.exe -xvzf oras_%VERSION%_windows_amd64.zip & ^
-            mkdir -p %USERPROFILE%\bin\ & ^
-            copy oras.exe %USERPROFILE%\bin\ & ^
-            set PATH=%USERPROFILE%\bin\;%PATH% & ^
-          - run: oras login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} || true
-          - run: oras push ghcr.io/${{github.repository}}:latest --artifact-type application/vnd.acme.rocket.config *.ISO
+          - id: step1
+            run: echo *.ISO
+
+    split:
+        runs-on: ubuntu-latest
+        permissions: write-all
+        steps:
+          - run: echo ${{needs.build.outputs.output1}} | zstd -11 >> Windows.iso.zst
+          - name: split iso
+            run: split -b 1.8G -d Windows.iso.zst Windows.iso.zst-
+          - name: Create Release
+            run: |
+                gh release create ${GITHUB_REF##*/} -t "Releases ${GITHUB_REF##*/}"
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          - name: Upload Release Asset
+            run: |
+                gh release upload ${GITHUB_REF##*/} Windows.iso.zst-*
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
