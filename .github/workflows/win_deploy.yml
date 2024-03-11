@@ -5,7 +5,7 @@ on:
 
 jobs:
     build:
-        runs-on: window-latest
+        runs-on: window-2019
         permissions: write-all
         outputs:
             output1: ${{ steps.step1.outputs.test }}
