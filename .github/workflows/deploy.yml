@@ -18,7 +18,7 @@ jobs:
           - run: sudo mv Sonoma.cdr Sonoma.iso
           - run: zstd -11 Sonoma.iso -o Sonoma.iso.zst
           - name: split iso
-            run: split -b 1.8G -d Sonoma.iso.zst Sonoma.iso.zst-
+            run: split -b 1800M -d Sonoma.iso.zst Sonoma.iso.zst-
           - name: Create Release
             run: |
                 gh release create ${GITHUB_REF##*/} -t "Releases ${GITHUB_REF##*/}"
