@@ -7,27 +7,14 @@ jobs:
     build:
         runs-on: macos-13
         steps:
-          - run: brew install aria2
-          - run: aria2c --file-allocation=none -x10 https://swcdn.apple.com/content/downloads/47/20/052-62010-A_IGTQLDJJXD/vu00gjm2kgj82xrpy4z05zgy1hm2e7in1x/InstallAssistant.pkg
-          - run: ls -al
-          - run: pkgutil --expand-full InstallAssistant.pkg InstallmacOSVentura.app
-          - run: softwareupdate --install-rosetta --agree-to-license
-          - run: hdiutil create -o /tmp/Ventura -size 18000m -volname Ventura -layout SPUD -fs HFS+J
-          - run: hdiutil attach /tmp/Ventura.dmg -noverify -mountpoint /Volumes/Ventura
-          - run: ls -al && ls -al /tmp/
-          - run: arch -arch x86_64 /bin/bash -c "$(sudo ./InstallmacOSVentura.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura)"
+          - run: softwareupdate --list-full-installers
+          - run: softwareupdate --download --fetch-full-installer --full-installer-version 14.3.1
+          - run: hdiutil create -o /tmp/Sonoma -size 16000m -volname Sonoma -layout SPUD -fs HFS+J
+          - run: hdiutil attach /tmp/Sonoma.dmg -noverify -mountpoint /Volumes/Sonoma
+          - run: sudo /Applications/Install*.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma
           - run: sudo hdiutil detach /Volumes/Install*
-          - run: sudo hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/tmp/Ventura.cdr
-          - run: sudo mv ~/tmp/Ventura.cdr ~/tmp/Ventura.iso
-          - run: brew install zstd
-          - run: zstd -11 ~/tmp/Ventura.iso -o ~/tmp/Ventura.iso.zst
-          - run: split -b 1.5G -d Ventura.iso.zst Ventura.iso.zst-
-          - run: gh release create ${GITHUB_REF##*/} -t "Releases ${GITHUB_REF##*/}"
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          - run: gh release upload ${GITHUB_REF##*/} Ventura.iso.zst-*
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+          - run: sudo hdiutil convert /tmp/Sonoma.dmg -format UDTO -o ~/tmp/Sonoma.cdr
+          - run: sudo mv ~/tmp/Sonoma.cdr ~/tmp/Sonoma.iso
+          - run: brew install oras || true
+          - run: oras login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} || true
+          - run: oras push ghcr.io/${{github.repository}}:latest --artifact-type application/vnd.acme.rocket.config ./Sonoma.iso
