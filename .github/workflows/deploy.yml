@@ -7,14 +7,15 @@ jobs:
     build:
         runs-on: macos-13
         steps:
-          - run: wget https://swcdn.apple.com/content/downloads/47/20/052-62010-A_IGTQLDJJXD/vu00gjm2kgj82xrpy4z05zgy1hm2e7in1x/InstallAssistant.pkg
-          - run: mkdir temp
-          - run: pkgutil --expand-full InstallAssistant.pkg ./temp/
+          - run: brew install aria2
+          - run: aria2c -x10 https://swcdn.apple.com/content/downloads/47/20/052-62010-A_IGTQLDJJXD/vu00gjm2kgj82xrpy4z05zgy1hm2e7in1x/InstallAssistant.pkg
+          - run: mkdir temp1
           - run: ls -al && tree
+          - run: pkgutil --expand-full InstallAssistant.pkg ./temp1/
           - run: softwareupdate --install-rosetta --agree-to-license
           - run: hdiutil create -o /tmp/Ventura -size 20000m -volname Ventura -layout SPUD -fs HFS+J
           - run: hdiutil attach /tmp/Ventura.dmg -noverify -mountpoint /Volumes/Ventura
-          - run: arch -arch x86_64 /bin/bash -c "$(sudo ./temp/Install\ macOS\ Ventura*.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura)"
+          - run: arch -arch x86_64 /bin/bash -c "$(sudo ./temp1/Install\ macOS\ Ventura*.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura)"
           - run: sudo hdiutil detach /Volumes/Install\ macOS\ Ventura*
           - run: sudo hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/tmp/Ventura.cdr
           - run: sudo mv ~/tmp/Ventura.cdr ~/tmp/Ventura.iso
