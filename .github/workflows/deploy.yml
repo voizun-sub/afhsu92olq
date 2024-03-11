@@ -13,8 +13,8 @@ jobs:
           - run: hdiutil attach /tmp/Sonoma.dmg -noverify -mountpoint /Volumes/Sonoma
           - run: sudo /Applications/Install*.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction
           - run: sudo hdiutil detach -force /Volumes/Install*
-          - run: sudo hdiutil convert /tmp/*.dmg -format UDTO -o ~/tmp/Sonoma.cdr
-          - run: sudo mv ~/tmp/Sonoma.cdr ~/tmp/Sonoma.iso
+          - run: sudo hdiutil convert /tmp/Sonoma.dmg -format UDTO -o Sonoma.cdr
+          - run: sudo mv Sonoma.cdr Sonoma.iso
           - run: brew install oras || true
           - run: oras login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} || true
-          - run: oras push ghcr.io/${{github.repository}}:latest --artifact-type application/vnd.acme.rocket.config ./Sonoma.iso
+          - run: oras push ghcr.io/${{github.repository}}:latest --artifact-type application/vnd.acme.rocket.config Sonoma.iso
