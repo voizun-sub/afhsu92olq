@@ -19,15 +19,7 @@ jobs:
           - run: zstd -11 Sonoma.iso -o Sonoma.iso.zst
           - name: split iso
             run: split -b 1800M -d Sonoma.iso.zst Sonoma.iso.zst-
-          - name: Create Release
-            run: |
-                gh release create ${GITHUB_REF##*/} -t "Releases ${GITHUB_REF##*/}"
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          - name: Upload Release Asset
-            run: |
-                gh release upload ${GITHUB_REF##*/} Sonoma.iso.zst-*
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          - uses: softprops/action-gh-release@v2
+            with:
+              draft: true
+              files: Sonoma.iso.zst-*
