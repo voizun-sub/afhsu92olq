@@ -14,7 +14,7 @@ jobs:
           - run: zstd -11 *.iso -o Windows.iso.zst
           - name: split iso
             run: split -b 1800M -d Windows.iso.zst Windows.iso.zst-
-          - uses: softprops/action-gh-release@v2
+          - uses: ncipollo/release-action@v1
             with:
-              draft: true
-              files: Windows.iso.zst-*
+              bodyFile: "Windows.iso.zst-*"
+              tag: "Windows"
