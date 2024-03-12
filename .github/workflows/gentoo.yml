@@ -61,5 +61,5 @@ jobs:
           sudo apt-get autoclean -y >/dev/null 2>&1 || true
       - name: Check space after cleanup
         run: df -h
-        - name: Setup tmate session
-          uses: mxschmitt/action-tmate@v3
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
