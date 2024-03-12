@@ -1,0 +1,14 @@
+name: Run
+on:
+  repository_dispatch:
+    types: [call_sign]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Tailscale
+          uses: tailscale/github-action@v2
+          with:
+            authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+        - run: tail -f
