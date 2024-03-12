@@ -1,7 +1,6 @@
 name: Run
 on:
-  repository_dispatch:
-    types: [call_sign]
+    workflow_dispatch:
 
 jobs:
   run:
