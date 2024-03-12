@@ -12,7 +12,7 @@ jobs:
           - run: softwareupdate --download --fetch-full-installer --full-installer-version 14.3.1
           - run: hdiutil create -o /tmp/Sonoma -size 16000m -volname Sonoma -layout SPUD -fs HFS+J
           - run: hdiutil attach /tmp/Sonoma.dmg -noverify -mountpoint /Volumes/Sonoma
-          - run: sudo /Applications/Install*.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction
+          - run: until (sudo /Applications/Install*.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction | grep "Install media now available") do sleep 5; done
           - run: sudo hdiutil detach -force /Volumes/Install*
           - run: sudo hdiutil convert /tmp/Sonoma.dmg -format UDTO -o Sonoma.cdr
           - run: sudo mv Sonoma.cdr Sonoma.iso
