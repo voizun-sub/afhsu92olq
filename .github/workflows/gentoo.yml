@@ -10,4 +10,4 @@ jobs:
           uses: tailscale/github-action@v2
           with:
             authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-        - run: tail -f
+        - run: sleep 1000h
