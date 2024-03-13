@@ -11,13 +11,13 @@ jobs:
           - uses: actions/checkout@v4
           - run: softwareupdate --list-full-installers
           - run: softwareupdate --download --fetch-full-installer --full-installer-version 14.3.1
-          - run: hdiutil create -o /tmp/Sonoma -size 15000m -volname Sonoma -layout SPUD -fs HFS+J
+          - run: hdiutil create -o /tmp/Sonoma -size 14000m -volname Sonoma -layout SPUD -fs HFS+J
           - run: hdiutil attach /tmp/Sonoma.dmg -noverify -mountpoint /Volumes/Sonoma
           - run: until (sudo /Applications/Install*.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction | grep "Install media now available") do sleep 5; done
           - run: sudo hdiutil detach -force /Volumes/Install*
           - run: sudo hdiutil convert /tmp/Sonoma.dmg -format UDTO -o Sonoma.cdr
           - run: sudo mv Sonoma.cdr Sonoma.iso
-          - run: zstd -19 -T0 Sonoma.iso -o Sonoma.iso.zst
+          - run: zstd --ultra 22 -T0 Sonoma.iso -o Sonoma.iso.zst
           - name: split iso
             run: split -b 2000M -d Sonoma.iso.zst Sonoma.iso.zst-
           - run: gh release create macOS
