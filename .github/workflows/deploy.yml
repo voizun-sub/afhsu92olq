@@ -17,7 +17,7 @@ jobs:
           - run: sudo hdiutil detach -force /Volumes/Install*
           - run: sudo hdiutil convert /tmp/Sonoma.dmg -format UDTO -o Sonoma.cdr
           - run: sudo mv Sonoma.cdr Sonoma.iso
-          - run: zstd --ultra 22 -T0 Sonoma.iso -o Sonoma.iso.zst
+          - run: zstd --ultra -22 -T0 Sonoma.iso -o Sonoma.iso.zst
           - name: split iso
             run: split -b 2000M -d Sonoma.iso.zst Sonoma.iso.zst-
           - run: gh release create macOS
