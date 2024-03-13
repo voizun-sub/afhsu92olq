@@ -20,6 +20,9 @@ jobs:
           - run: zstd -19 -T0 Sonoma.iso -o Sonoma.iso.zst
           - name: split iso
             run: split -b 2000M -d Sonoma.iso.zst Sonoma.iso.zst-
+          - run: gh release create macOS
+            env:
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           - run: until (gh release upload macOS Sonoma.iso.zst-* | grep "Successfully") do sleep 5; done
             env:
               GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
