@@ -1,0 +1,19 @@
+name: Download from list
+
+on:
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        permissions: write-all
+        steps:
+          - uses: actions/checkout@v4
+          - run: wget -c -i ./download_list
+          - run: zstd --ultra -22 *.deb -o all.zst
+          - run: gh release create package_list
+            env:
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          - run: gh release upload package_list all.zst
+            env:
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
