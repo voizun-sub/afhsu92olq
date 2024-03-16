@@ -10,10 +10,10 @@ jobs:
         steps:
           - uses: actions/checkout@v4
           - run: wget -c -i ./download-list
-          - run: zstd --ultra -22 *.deb -o all.zst
+          - run: tar -cf - *.deb | zstd --ultra -22 -T0 > all.tar.zst
           - run: gh release create package_list
             env:
               GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          - run: gh release upload package_list all.zst
+          - run: gh release upload package_list all.tar.zst
             env:
               GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
