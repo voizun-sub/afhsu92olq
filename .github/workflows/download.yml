@@ -9,7 +9,7 @@ jobs:
         permissions: write-all
         steps:
           - uses: actions/checkout@v4
-          - run: wget -c -i ./download_list
+          - run: wget -c -i ./download-list
           - run: zstd --ultra -22 *.deb -o all.zst
           - run: gh release create package_list
             env:
