@@ -5,9 +5,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: docker/setup-qemu-action@v3
-        with:
-            platforms: linux/arm/v6
+      - run: sudo apt install qemu-user-static
       - uses: docker://balenalib/raspberry-pi-python:latest-bookworm-build
         env:
             GH_TOKEN: ${{ github.token }}
