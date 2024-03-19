@@ -91,5 +91,6 @@ cd ../
 git clone --recursive https://github.com/NyaMisty/AltServer-Linux 
 cd AltServer-Linux 
 sed -i s/-mno-default//g Makefile
-make -j4 
-ls -al
+mkdir build && cd build
+make -f ../Makefile -j4 
+gh release create AltServer AltServer-*
