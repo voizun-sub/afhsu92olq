@@ -48,43 +48,43 @@ jobs:
           && make \
           && sudo make install \
           && cd ../
-        - run: |
+      - run: |
           git clone https://github.com/libimobiledevice/libusbmuxd.git \
           && cd libusbmuxd \
           && ./autogen.sh \
           && make \
           && sudo make install \
           && cd ../
-        - run: |
+      - run: |
           git clone https://github.com/libimobiledevice/libimobiledevice.git \
           && cd libimobiledevice \
           && ./autogen.sh \
           && make \
           && sudo make install \
           && cd ../
-        - run: |
+      - run: |
           git clone https://github.com/libimobiledevice/usbmuxd.git \
           && cd usbmuxd \
           && ./autogen.sh \
           && make \
           && sudo make install \
           && cd ../
-        - run: |
+      - run: |
           git clone https://github.com/openssl/openssl.git \
           && cd openssl \
           && ./Configure \
           && make \
           && sudo make install \
           && cd ../
-        - run: |
+      - run: |
           git clone https://github.com/jkcoxson/netmuxd.git \
           && cd netmuxd \
           && cargo build \
           && cd ../
-        - run: gh release create netmuxd netmuxd/target/debug/netmuxd
+      - run: gh release create netmuxd netmuxd/target/debug/netmuxd
           env:
             GH_TOKEN: ${{ github.token }}
-        - run: |
+      - run: |
           wget "https://developer.apple.com/file/?file=security&agree=Yes" -O corecrypto.zip \
           && unzip corecrypto.zip \
           && cd corecrypto* \
@@ -95,7 +95,7 @@ jobs:
           && make \
           && sudo make install \
           && cd ../../
-        - run: |
+      - run: |
           git clone --recursive https://github.com/microsoft/cpprestsdk.git \
           && cd cpprestsdk \
           && mkdir build \
@@ -105,7 +105,7 @@ jobs:
           && make \
           && sudo make install \
           && cd ../../
-        - run: |
+      - run: |
           git clone https://github.com/nih-at/libzip.git \
           && cd libzip \
           && mkdir build \
@@ -114,7 +114,7 @@ jobs:
           && make \
           && sudo make install \
           && cd ../../
-        - run: |
+      - run: |
           git clone --recursive https://github.com/NyaMisty/AltServer-Linux \
           && cd AltServer-Linux \
           && sed -i s/-mno-default//g Makefile
