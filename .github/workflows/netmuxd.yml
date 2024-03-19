@@ -19,12 +19,12 @@ jobs:
             libgtk-3-0 \
             dub \
             build-essential \
-	    pkg-config \
+            pkg-config \
             checkinstall \
-	    git \
-	    autoconf \
-	    automake \
-	    libtool-bin \
+            git \
+            autoconf \
+            automake \
+            libtool-bin \
             clang \
             cmake \
             ninja \
