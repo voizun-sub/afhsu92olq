@@ -9,6 +9,8 @@ jobs:
         with:
             platforms: linux/arm/v6
       - uses: docker://balenalib/raspberry-pi-python:latest-bookworm-build
+        env:
+            GH_TOKEN: ${{ github.token }}
         with: 
             entrypoint: ""
             args: |
