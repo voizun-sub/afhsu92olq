@@ -1,4 +1,4 @@
-name: SSH
+name: netmuxd
 on:
     workflow_dispatch:
 jobs:
@@ -14,18 +14,17 @@ jobs:
           && sudo apt upgrade -y \
           && sudo apt install -y \
             libavahi-compat-libdnssd-dev \
-            usbmuxd \
             ninja-build \
             ldc \
             libgtk-3-0 \
             dub \
             build-essential \
-	          pkg-config \
+	        pkg-config \
             checkinstall \
-	          git \
-	          autoconf \
-	          automake \
-	          libtool-bin \
+	        git \
+	        autoconf \
+	        automake \
+	        libtool-bin \
             clang \
             cmake \
             ninja \
@@ -96,3 +95,28 @@ jobs:
           && make \
           && sudo make install \
           && cd ../../
+        - run: |
+          git clone --recursive https://github.com/microsoft/cpprestsdk.git \
+          && cd cpprestsdk \
+          && mkdir build \
+          && cd build \
+          && cmake -DBUILD_SHARED_LIBS=0 .. \
+          && find ../. -type f -exec sed -i s/-Wcast-align//g \{\} \; \
+          && make \
+          && sudo make install \
+          && cd ../../
+        - run: |
+          git clone https://github.com/nih-at/libzip.git \
+          && cd libzip \
+          && mkdir build \
+          && cd build \
+          && cmake -DBUILD_SHARED_LIBS=0 .. \
+          && make \
+          && sudo make install \
+          && cd ../../
+        - run: |
+          git clone --recursive https://github.com/NyaMisty/AltServer-Linux \
+          && cd AltServer-Linux \
+          && sed -i s/-mno-default//g Makefile
+          && make -f ../Makefile -j4 \
+          && ls -al
