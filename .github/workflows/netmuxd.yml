@@ -82,8 +82,8 @@ jobs:
           && cargo build \
           && cd ../
       - run: gh release create netmuxd netmuxd/target/debug/netmuxd
-          env:
-            GH_TOKEN: ${{ github.token }}
+        env:
+          GH_TOKEN: ${{ github.token }}
       - run: |
           wget "https://developer.apple.com/file/?file=security&agree=Yes" -O corecrypto.zip \
           && unzip corecrypto.zip \
