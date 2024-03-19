@@ -22,8 +22,10 @@ apt install -y \
     cmake \
     ninja \
     libboost-all-dev \
+    unzip \
     gh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y 
+. "$HOME/.cargo/env"
 rustup toolchain install stable 
 rustup default stable 
 git clone https://github.com/libimobiledevice/libplist.git 
@@ -69,22 +71,22 @@ cd ../
 gh release create netmuxd netmuxd/target/debug/netmuxd 
 wget "https://developer.apple.com/file/?file=security&agree=Yes" -O corecrypto.zip 
 unzip corecrypto.zip 
-cd corecrypto* 
-wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/CMakeLists.txt 
-CC=clang CXX=clang++ cmake 
+cd corecrypto-2023
+wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/CMakeLists.txt -O CMakeLists.txt 
+CC=clang CXX=clang++ cmake
 make -j4 
 make install 
 cd ../ 
 git clone --recursive https://github.com/microsoft/cpprestsdk.git 
-cd cpprestsdk 
-cmake -DBUILD_SHARED_LIBS=0 .. 
+cd cpprestsdk
+cmake -DBUILD_SHARED_LIBS=0
 find . -type f -exec sed -i s/-Wcast-align//g \{\} \; 
 make -j4 
 make install 
 cd ../ 
 git clone https://github.com/nih-at/libzip.git 
 cd libzip 
-cmake -DBUILD_SHARED_LIBS=0 .. 
+cmake -DBUILD_SHARED_LIBS=0
 make -j4 
 make install 
 cd ../ 
