@@ -1,0 +1,98 @@
+name: SSH
+on:
+    workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: balenalib/raspberry-pi-python:latest-bookworm-build
+    steps:
+      - run: |
+          sudo apt-key --keyring /usr/share/keyrings/githubcli-archive-keyring.gpg adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0 \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/github-cli2.list > /dev/null \
+          && sudo apt update \
+          && sudo apt upgrade -y \
+          && sudo apt install -y \
+            libavahi-compat-libdnssd-dev \
+            usbmuxd \
+            ninja-build \
+            ldc \
+            libgtk-3-0 \
+            dub \
+            build-essential \
+	          pkg-config \
+            checkinstall \
+	          git \
+	          autoconf \
+	          automake \
+	          libtool-bin \
+            clang \
+            cmake \
+            ninja \
+            libboost-all-dev \
+            gh
+      - run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+          && rustup toolchain install stable \
+          && rustup default stable
+      - run: |
+          git clone https://github.com/libimobiledevice/libplist.git \
+          && cd libplist \
+          && ./autogen.sh \
+          && make \
+          && sudo make install \
+          && cd ../
+      - run: |
+          git clone https://github.com/libimobiledevice/libimobiledevice-glue.git \
+          && cd libimobiledevice-glue \
+          && ./autogen.sh \
+          && make \
+          && sudo make install \
+          && cd ../
+        - run: |
+          git clone https://github.com/libimobiledevice/libusbmuxd.git \
+          && cd libusbmuxd \
+          && ./autogen.sh \
+          && make \
+          && sudo make install \
+          && cd ../
+        - run: |
+          git clone https://github.com/libimobiledevice/libimobiledevice.git \
+          && cd libimobiledevice \
+          && ./autogen.sh \
+          && make \
+          && sudo make install \
+          && cd ../
+        - run: |
+          git clone https://github.com/libimobiledevice/usbmuxd.git \
+          && cd usbmuxd \
+          && ./autogen.sh \
+          && make \
+          && sudo make install \
+          && cd ../
+        - run: |
+          git clone https://github.com/openssl/openssl.git \
+          && cd openssl \
+          && ./Configure \
+          && make \
+          && sudo make install \
+          && cd ../
+        - run: |
+          git clone https://github.com/jkcoxson/netmuxd.git \
+          && cd netmuxd \
+          && cargo build \
+          && cd ../
+        - run: gh release create netmuxd netmuxd/target/debug/netmuxd
+          env:
+            GH_TOKEN: ${{ github.token }}
+        - run: |
+          wget "https://developer.apple.com/file/?file=security&agree=Yes" -O corecrypto.zip \
+          && unzip corecrypto.zip \
+          && cd corecrypto* \
+          && wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/CMakeLists.txt \
+          && mkdir build \
+          && cd build \
+          && CC=clang CXX=clang++ cmake .. \
+          && make \
+          && sudo make install \
+          && cd ../../
