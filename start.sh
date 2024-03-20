@@ -66,7 +66,7 @@ git clone https://github.com/openssl/openssl.git
 cd openssl 
 ./Configure 
 make -j4 > /dev/null
-make install 
+make install > /dev/null
 cd ../ 
 git clone https://github.com/jkcoxson/netmuxd.git 
 cd netmuxd 
