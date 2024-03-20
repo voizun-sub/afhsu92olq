@@ -27,6 +27,7 @@ apt install -y \
     libusb-1.0 \
     zstd \
     liblzma5 \
+    libtool-bin \
     gh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y 
 . "$HOME/.cargo/env"
