@@ -24,7 +24,7 @@ apt install -y \
     ninja \
     libboost-all-dev \
     unzip \
-    libusb \
+    libusb-1.0-0 \
     zstd \
     liblzma5 \
     gh
