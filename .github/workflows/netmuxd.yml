@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
-      - uses: docker://balenalib/raspberry-pi-python:latest-bookworm-build
+      - uses: ./
         env:
             GH_TOKEN: ${{ github.token }}
         with: 
