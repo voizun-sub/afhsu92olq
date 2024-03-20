@@ -24,7 +24,7 @@ apt install -y \
     ninja \
     libboost-all-dev \
     unzip \
-    libusb-1.0 \
+    libusb \
     zstd \
     liblzma5 \
     libtool-bin \
