@@ -1,2 +1,3 @@
 FROM balenalib/raspberry-pi-python:latest-bookworm-build
-RUN mkdir -p /github/home/.cargo && chmod 777 /github/home/.cargo && mount -t tmpfs none /github/home/.cargo
+COPY ./start.sh /start.sh
+RUN --mount=type=tmpfs,target=/github/home/.cargo chmod 755 /start.sh $$ start.sh
