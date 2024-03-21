@@ -5,7 +5,7 @@ wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | tee /e
 chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" |  tee /etc/apt/sources.list.d/github-cli.list > /dev/null 
 apt update 
-apt upgrade -y > /dev/null
+apt upgrade -y
 apt install -y \
     libavahi-compat-libdnssd-dev \
     ninja-build \
@@ -27,8 +27,7 @@ apt install -y \
     libusb-1.0-0 \
     zstd \
     liblzma5 \
-    gh \
-    > /dev/null
+    gh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y 
 . "$HOME/.cargo/env"
 rustup toolchain install stable 
