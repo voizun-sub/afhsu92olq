@@ -8,8 +8,13 @@ jobs:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
       - uses: ./
-        env:
-            GH_TOKEN: ${{ github.token }}
         with: 
             entrypoint: "/bin/bash"
             args: ./start.sh
+      - uses: actions/upload-artifact@v4
+        with:
+            name: binary
+            path: |
+              ${{ github.workspace }}/netmuxd/target/debug/netmuxd
+              ${{ github.workspace }}/AltServer-Linux/AltServer-*
+            compression-level: 9
