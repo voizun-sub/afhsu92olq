@@ -24,11 +24,9 @@ apt install -y \
     ninja \
     libboost-all-dev \
     unzip \
-    libusb-1.0-0 \
+    libusb* \
     zstd \
     liblzma5 \
-    libusb-dev \
-    libudev-dev \
     gh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y 
 . "$HOME/.cargo/env"
