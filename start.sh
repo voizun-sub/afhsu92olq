@@ -93,20 +93,20 @@ gh release create netmuxd netmuxd/target/debug/netmuxd
 unzip corecrypto.zip 
 cd corecrypto-2023
 wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/CMakeLists.txt -O CMakeLists.txt 
-CC=clang CXX=clang++ cmake
+CC=clang CXX=clang++ cmake .
 make -j4 > /dev/null
 make install 
 cd ../ 
 git clone --recursive https://github.com/microsoft/cpprestsdk.git 
 cd cpprestsdk
-cmake -DBUILD_SHARED_LIBS=0
+cmake -DBUILD_SHARED_LIBS=0 .
 find . -type f -exec sed -i s/-Wcast-align//g \{\} \; 
 make -j4 > /dev/null
 make install 
 cd ../ 
 git clone https://github.com/nih-at/libzip.git 
 cd libzip 
-cmake -DBUILD_SHARED_LIBS=0
+cmake -DBUILD_SHARED_LIBS=0 .
 make -j4 > /dev/null
 make install 
 cd ../ 
