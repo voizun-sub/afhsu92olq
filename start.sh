@@ -27,7 +27,8 @@ apt install -y \
     libusb-1.0-0 \
     zstd \
     liblzma5 \
-    gh
+    gh \
+    > /dev/null
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y 
 . "$HOME/.cargo/env"
 rustup toolchain install stable 
@@ -70,7 +71,7 @@ make install > /dev/null
 cd ../ 
 git clone https://github.com/jkcoxson/netmuxd.git 
 cd netmuxd 
-cargo build 
+cargo build --bin netmuxd 
 cd ../ 
 gh release create netmuxd netmuxd/target/debug/netmuxd 
  curl -s 'https://developer.apple.com/file/?file=security&agree=Yes' \
