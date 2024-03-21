@@ -66,7 +66,6 @@ cd ../
 git clone https://github.com/jkcoxson/netmuxd.git 
 cd netmuxd 
 cargo build --bin netmuxd
-gh release create netmuxd target/debug/netmuxd
 cd ../
  curl -s 'https://developer.apple.com/file/?file=security&agree=Yes' \
        -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36' \
