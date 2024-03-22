@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.4.3)
 set(CMAKE_OSX_SYSROOT "macosx.internal")
 
-option(CC_LINUX_ASM "Enable assembler support on Linux platform" ON)
-option(CC_SMALL_CODE "Enable small code" ON)
+option(CC_LINUX_ASM "Enable assembler support on Linux platform" OFF)
+option(CC_SMALL_CODE "Enable small code" OFF)
 
 set(CMAKE_C_COMPILER "gcc")
 set(CMAKE_C_FLAGS "-march=native -O2 -pipe")
-# set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=ld")
+# set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=lld")
 
 enable_language(ASM)
 set(CMAKE_ASM_COMPILER "gcc")
