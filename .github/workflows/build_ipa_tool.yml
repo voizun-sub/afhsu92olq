@@ -5,7 +5,6 @@ jobs:
   netmuxd:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
       - uses: ./netmuxd
       - uses: actions/upload-artifact@v4
@@ -18,7 +17,6 @@ jobs:
   altserver:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
       - uses: ./altserver
       - uses: actions/upload-artifact@v4
@@ -31,7 +29,6 @@ jobs:
   wheel:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
       - uses: ./wheel
       - uses: actions/upload-artifact@v4
