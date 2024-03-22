@@ -41,7 +41,7 @@ rustup default stable
        -H 'Pragma: no-cache' \
        -H 'Cache-Control: no-cache' \
        -o "corecrypto.zip"
-unzip corecrypto.zip 
+unzip corecrypto.zip > /dev/null
 cd corecrypto-2023
 wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/CMakeLists.txt -O CMakeLists.txt
 wget https://raw.githubusercontent.com/StableCoder/cmake-scripts/8a92770d1e518a86788b67ab0e4e5f965a399cc8/code-coverage.cmake -O scripts/code-coverage.cmake
