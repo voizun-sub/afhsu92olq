@@ -44,5 +44,5 @@ jobs:
         with:
             name: wheel
             path: |
-              ${{ github.workspace }}/
+              ${{ github.workspace }}/whl/*
             compression-level: 9
