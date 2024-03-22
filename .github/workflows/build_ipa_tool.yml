@@ -15,8 +15,8 @@ jobs:
       - run: sudo apt install qemu-user-static
       - uses: ./
         with:
-          entrypoint: ''
-          args: bash -c 'wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/netmuxd-start.sh -O start.sh && bash ./start.sh'
+          entrypoint: '/bin/bash -c'
+          args: 'wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/netmuxd-start.sh -O start.sh && bash ./start.sh'
       - if: failure()
         uses: actions/upload-artifact@v4
         with:
