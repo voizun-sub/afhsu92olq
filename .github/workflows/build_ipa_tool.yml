@@ -16,8 +16,13 @@ jobs:
       - uses: ./
         with:
           entrypoint: ''
-          args: 'wget -qO start.sh https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/netmuxd-start.sh && chmod 755 start.sh && ./start.sh'
-          
+          args: 'wget -qO start.sh https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/netmuxd-start.sh && chmod 755 start.sh && ./start.sh > netmuxd.log 2>&1'
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+            name: netmuxd-log
+            path: ${{ github.workspace }}/netmuxd.log
+            compression-level: 0
       - uses: actions/upload-artifact@v4
         with:
             name: netmuxd
@@ -32,7 +37,13 @@ jobs:
       - uses: ./
         with:
           entrypoint: ''
-          args: 'wget -qO start.sh https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/altserver-start.sh && chmod 755 start.sh && ./start.sh'
+          args: 'wget -qO start.sh https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/altserver-start.sh && chmod 755 start.sh && ./start.sh > altserver.log 2>&1'
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+            name: altserver-log
+            path: ${{ github.workspace }}/altserver.log
+            compression-level: 0
       - uses: actions/upload-artifact@v4
         with:
             name: altserver
@@ -47,7 +58,13 @@ jobs:
       - uses: ./
         with:
           entrypoint: ''
-          args: 'wget -qO start.sh https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/wheel-start.sh && chmod 755 start.sh && ./start.sh'
+          args: 'wget -qO start.sh https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/wheel-start.sh && chmod 755 start.sh && ./start.sh > wheel.log 2>&1'
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+            name: wheel-log
+            path: ${{ github.workspace }}/wheel.log
+            compression-level: 0
       - run: tar cf - ${{ github.workspace }}/wheel/* | zstd -ultra -22 -T0 > libimobiledevice.whl.tar.zst
       - uses: actions/upload-artifact@v4
         with:
