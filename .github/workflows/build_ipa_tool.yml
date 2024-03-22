@@ -13,12 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
-      - uses: ./${{  github.jobs[github.job].name  }}
+      - uses: ./netmuxd
       - uses: actions/upload-artifact@v4
         with:
-            name: ${{  github.jobs[github.job].name  }}
+            name: netmuxd
             path: |
-              ${{ github.workspace }}/bin/${{  github.jobs[github.job].name  }}
+              ${{ github.workspace }}/bin/netmuxd
             compression-level: 9
 
   altserver:
@@ -26,12 +26,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
-      - uses: ./${{  github.jobs[github.job].name  }}
+      - uses: ./altserver
       - uses: actions/upload-artifact@v4
         with:
-            name: ${{  github.jobs[github.job].name  }}
+            name: altserver
             path: |
-              ${{ github.workspace }}/bin/${{  github.jobs[github.job].name  }}
+              ${{ github.workspace }}/bin/altserver
             compression-level: 9
 
   wheel:
@@ -39,10 +39,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
-      - uses: ./${{  github.jobs[github.job].name  }}
+      - uses: ./wheel
       - uses: actions/upload-artifact@v4
         with:
-            name: ${{  github.jobs[github.job].name  }}
+            name: wheel
             path: |
-              ${{ github.workspace }}/${{  github.jobs[github.job].name  }}/*.whl
+              ${{ github.workspace }}/bin/libimobiledevice.whl.tar.zst
             compression-level: 9
