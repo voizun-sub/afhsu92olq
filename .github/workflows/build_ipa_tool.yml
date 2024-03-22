@@ -47,9 +47,9 @@ jobs:
         with:
           entrypoint: ""
           args: bash -c "wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/wheel-start.sh -O start.sh && bash ./start.sh"
-      - run: tar cf - ${{ github.workspace }}/wheel/* | zstd -ultra -22 -T0 > libimobiledevice.whl.tar.zst
+      - run: cd ${{ github.workspace }}/wheel && tar -cf - ./* | zstd -ultra -22 -T0 > ../libimobiledevice.whl.tar.zst
       - uses: actions/upload-artifact@v4
         with:
             name: wheel
-            path: libimobiledevice.whl.tar.zst
+            path: ${{ github.workspace }}/libimobiledevice.whl.tar.zst
             compression-level: 0
