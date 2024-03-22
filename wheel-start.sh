@@ -15,7 +15,7 @@ rustup toolchain install stable
 rustup default stable
 pip freeze > uninstall.txt
 pip uninstall -y -r uninstall.txt --break-system-packages
-pip install libmobiledevice3 --break-system-packages
+pip install pymobiledevice3 --break-system-packages
 pip freeze > requirements.txt
-PIP_ONLY_BINARY=cmake pip wheel --no-cache --wheel-dir=./wheel -r requirements.txt
+pip wheel --no-cache --wheel-dir=./wheel -r requirements.txt
 mv requirements.txt ./wheel
