@@ -17,12 +17,6 @@ jobs:
         with:
           entrypoint: ""
           args: bash -c "wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/netmuxd-start.sh -O start.sh && bash ./start.sh"
-      - if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-            name: netmuxd-log
-            path: ${{ github.workspace }}/netmuxd.log
-            compression-level: 0
       - uses: actions/upload-artifact@v4
         with:
             name: netmuxd
@@ -36,14 +30,8 @@ jobs:
       - run: sudo apt install qemu-user-static
       - uses: ./
         with:
-          entrypoint: ''
-          args: 'wget -qO start.sh https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/altserver-start.sh && chmod 755 start.sh && ./start.sh > altserver.log 2>&1'
-      - if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-            name: altserver-log
-            path: ${{ github.workspace }}/altserver.log
-            compression-level: 0
+          entrypoint: ""
+          args: bash -c "wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/altserver-start.sh -O start.sh && bash ./start.sh"
       - uses: actions/upload-artifact@v4
         with:
             name: altserver
@@ -57,14 +45,8 @@ jobs:
       - run: sudo apt install qemu-user-static
       - uses: ./
         with:
-          entrypoint: ''
-          args: 'wget -qO start.sh https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/wheel-start.sh && chmod 755 start.sh && ./start.sh > wheel.log 2>&1'
-      - if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-            name: wheel-log
-            path: ${{ github.workspace }}/wheel.log
-            compression-level: 0
+          entrypoint: ""
+          args: bash -c "wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/wheel-start.sh -O start.sh && bash ./start.sh"
       - run: tar cf - ${{ github.workspace }}/wheel/* | zstd -ultra -22 -T0 > libimobiledevice.whl.tar.zst
       - uses: actions/upload-artifact@v4
         with:
