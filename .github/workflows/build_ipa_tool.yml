@@ -40,10 +40,10 @@ jobs:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
       - uses: ./wheel
-      - run: tar cf - ./wheel/*.whl | zstd -ultra -22 -T0 > ${{ github.workspace }}/bin/libimobiledevice.whl.tar.zst
+      - run: tar cf - ./wheel/* | zstd -ultra -22 -T0 > ${{ github.workspace }}/bin/libimobiledevice.whl.tar.zst
       - uses: actions/upload-artifact@v4
         with:
             name: wheel
             path: |
               ${{ github.workspace }}/bin/libimobiledevice.whl.tar.zst
-            compression-level: 9
+            compression-level: 0
