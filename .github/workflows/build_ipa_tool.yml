@@ -1,7 +1,13 @@
 name: Sideload tools
 on:
     workflow_dispatch:
+
 jobs:
+  worker:
+    runs-on: ubuntu-latest
+    steps:
+      - run: mkdir ${{  github.workspace  }}/bin
+
   netmuxd:
     runs-on: ubuntu-latest
     steps:
