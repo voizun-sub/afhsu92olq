@@ -15,7 +15,7 @@ jobs:
       - run: sudo apt install qemu-user-static
       - uses: ./
         with:
-          entrypoint: '/bin/bash -c'
+          entrypoint: ''
           args: 'wget -qO- https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/netmuxd-start.sh | bash'
           
       - uses: actions/upload-artifact@v4
@@ -31,7 +31,7 @@ jobs:
       - run: sudo apt install qemu-user-static
       - uses: ./
         with:
-          entrypoint: '/bin/bash -c'
+          entrypoint: ''
           args: 'wget -qO- https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/altserver-start.sh | bash'
       - uses: actions/upload-artifact@v4
         with:
@@ -46,7 +46,7 @@ jobs:
       - run: sudo apt install qemu-user-static
       - uses: ./
         with:
-          entrypoint: '/bin/bash -c'
+          entrypoint: ''
           args: 'wget -qO- https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/wheel-start.sh | bash'
       - run: tar cf - ${{ github.workspace }}/wheel/* | zstd -ultra -22 -T0 > libimobiledevice.whl.tar.zst
       - uses: actions/upload-artifact@v4
