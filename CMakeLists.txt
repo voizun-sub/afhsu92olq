@@ -6,7 +6,7 @@ option(CC_SMALL_CODE "Enable small code" ON)
 
 set(CMAKE_C_COMPILER "gcc")
 set(CMAKE_C_FLAGS "-march=native -O2 -pipe")
-set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=ld.lld")
+set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=ld")
 
 enable_language(ASM)
 set(CMAKE_ASM_COMPILER "gcc")
