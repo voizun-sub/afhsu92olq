@@ -7,7 +7,8 @@ apt install -y \
     libopenblas-dev \
     python3-cvxopt \
     python3-freetype \
-    python3-hdf*
+    python3-hdf* \
+    cmake
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y 
 . "$HOME/.cargo/env"
 rustup toolchain install stable 
@@ -16,5 +17,5 @@ pip freeze > uninstall.txt
 pip uninstall -y -r uninstall.txt --break-system-packages
 pip install libmobiledevice3 --break-system-packages
 pip freeze > requirements.txt
-pip wheel --no-cache --wheel-dir=./wheel -r requirements.txt
+PIP_ONLY_BINARY=cmake pip wheel --no-cache --wheel-dir=./wheel -r requirements.txt
 mv requirements.txt ./wheel
