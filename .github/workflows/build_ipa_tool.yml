@@ -1,4 +1,4 @@
-name: netmuxd
+name: Sideload tools
 on:
     workflow_dispatch:
 jobs:
