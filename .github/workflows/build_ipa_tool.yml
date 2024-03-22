@@ -4,11 +4,12 @@ on:
 jobs:
   netmuxd:
     runs-on: ubuntu-latest
-    env: STATES=netmuxd
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
       - uses: ./
+        env:
+          STATES: netmuxd
       - uses: actions/upload-artifact@v4
         with:
             name: netmuxd
@@ -18,11 +19,12 @@ jobs:
 
   altserver:
     runs-on: ubuntu-latest
-    env: STATES=altserver
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
       - uses: ./
+        env:
+          STATES: altserver
       - uses: actions/upload-artifact@v4
         with:
             name: altserver
@@ -32,11 +34,12 @@ jobs:
 
   wheel:
     runs-on: ubuntu-latest
-    env: STATES=wheel
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
       - uses: ./
+        env:
+          STATES: wheel
       - uses: actions/upload-artifact@v4
         with:
             name: wheel
