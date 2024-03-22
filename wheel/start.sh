@@ -11,5 +11,10 @@ apt install -y \
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y 
 . "$HOME/.cargo/env"
 rustup toolchain install stable 
-rustup default stable 
-pip wheel --no-cache --wheel-dir=./wheel libmobiledevice3
+rustup default stable
+pip freeze > uninstall.txt
+pip uninstall -y -r uninstall.txt --break-system-packages
+pip install libmobiledevice3 --break-system-packages
+pip freeze > requirements.txt
+pip wheel --no-cache --wheel-dir=./wheel -r requirements.txt
+mv requirements.txt ./wheel
