@@ -12,4 +12,4 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 . "$HOME/.cargo/env"
 rustup toolchain install stable 
 rustup default stable 
-pip wheel --no-cache --wheel-dir=./whl libmobiledevice
+pip wheel --no-cache --wheel-dir=./whl libmobiledevice3
