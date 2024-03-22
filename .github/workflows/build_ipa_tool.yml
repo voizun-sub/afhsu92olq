@@ -16,7 +16,7 @@ jobs:
       - uses: ./
         with:
           entrypoint: ''
-          args: 'wget -qO- https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/netmuxd-start.sh | bash -s --'
+          args: 'wget -qO start.sh https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/netmuxd-start.sh && chmod 755 start.sh && ./start.sh'
           
       - uses: actions/upload-artifact@v4
         with:
@@ -32,7 +32,7 @@ jobs:
       - uses: ./
         with:
           entrypoint: ''
-          args: 'wget -qO- https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/altserver-start.sh | bash -s --'
+          args: 'wget -qO start.sh https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/altserver-start.sh && chmod 755 start.sh && ./start.sh'
       - uses: actions/upload-artifact@v4
         with:
             name: altserver
@@ -47,7 +47,7 @@ jobs:
       - uses: ./
         with:
           entrypoint: ''
-          args: 'wget -qO- https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/wheel-start.sh | bash -s --'
+          args: 'wget -qO start.sh https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/wheel-start.sh && chmod 755 start.sh && ./start.sh'
       - run: tar cf - ${{ github.workspace }}/wheel/* | zstd -ultra -22 -T0 > libimobiledevice.whl.tar.zst
       - uses: actions/upload-artifact@v4
         with:
