@@ -53,3 +53,4 @@ cd ../
 git clone https://github.com/jkcoxson/netmuxd.git 
 cd netmuxd 
 cargo build --bin netmuxd
+mv target/debug/netmuxd ../bin/netmuxd
