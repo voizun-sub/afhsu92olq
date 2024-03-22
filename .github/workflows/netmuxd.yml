@@ -2,19 +2,47 @@ name: netmuxd
 on:
     workflow_dispatch:
 jobs:
-  build:
+  netmuxd:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
       - uses: ./
         with: 
-            entrypoint: "/bin/bash"
-            args: ./start.sh
+            env: STATES=netmuxd
       - uses: actions/upload-artifact@v4
         with:
             name: binary
             path: |
               ${{ github.workspace }}/netmuxd/target/debug/netmuxd
+            compression-level: 9
+
+  altserver:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt install qemu-user-static
+      - uses: ./
+        with: 
+            env: STATES=altserver
+      - uses: actions/upload-artifact@v4
+        with:
+            name: binary
+            path: |
               ${{ github.workspace }}/AltServer-Linux/AltServer-*
+            compression-level: 9
+
+  wheel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt install qemu-user-static
+      - uses: ./
+        with: 
+            env: STATES=wheel
+      - uses: actions/upload-artifact@v4
+        with:
+            name: binary
+            path: |
+              ${{ github.workspace }}/
             compression-level: 9
