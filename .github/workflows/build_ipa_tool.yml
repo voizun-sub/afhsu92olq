@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
-      - uses: ./Dockerfile.netmuxd
+      - uses: ./netmuxd
       - uses: actions/upload-artifact@v4
         with:
             name: netmuxd
@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
-      - uses: ./Dockerfile.altserver
+      - uses: ./altserver
       - uses: actions/upload-artifact@v4
         with:
             name: altserver
@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
-      - uses: ./Dockerfile.wheel
+      - uses: ./wheel
       - uses: actions/upload-artifact@v4
         with:
             name: wheel
