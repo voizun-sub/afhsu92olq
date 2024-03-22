@@ -13,12 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
-      - uses: ./${{  vars.JOB_NAME  }}
+      - uses: ./${{  github.jobs[github.job].name  }}
       - uses: actions/upload-artifact@v4
         with:
-            name: ${{  vars.JOB_NAME  }}
+            name: ${{  github.jobs[github.job].name  }}
             path: |
-              ${{ github.workspace }}/bin/${{  vars.JOB_NAME  }}
+              ${{ github.workspace }}/bin/${{  github.jobs[github.job].name  }}
             compression-level: 9
 
   altserver:
@@ -26,12 +26,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
-      - uses: ./${{  vars.JOB_NAME  }}
+      - uses: ./${{  github.jobs[github.job].name  }}
       - uses: actions/upload-artifact@v4
         with:
-            name: ${{  vars.JOB_NAME  }}
+            name: ${{  github.jobs[github.job].name  }}
             path: |
-              ${{ github.workspace }}/bin/${{  vars.JOB_NAME  }}
+              ${{ github.workspace }}/bin/${{  github.jobs[github.job].name  }}
             compression-level: 9
 
   wheel:
@@ -39,10 +39,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install qemu-user-static
-      - uses: ./${{  vars.JOB_NAME  }}
+      - uses: ./${{  github.jobs[github.job].name  }}
       - uses: actions/upload-artifact@v4
         with:
-            name: ${{  vars.JOB_NAME  }}
+            name: ${{  github.jobs[github.job].name  }}
             path: |
-              ${{ github.workspace }}/${{  vars.JOB_NAME  }}/*.whl
+              ${{ github.workspace }}/${{  github.jobs[github.job].name  }}/*.whl
             compression-level: 9
