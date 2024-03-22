@@ -6,10 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt install qemu-user-static
-      - uses: ./netmuxd
+      - uses: ./${{  github.job  }}
       - uses: actions/upload-artifact@v4
         with:
-            name: netmuxd
+            name: ${{  github.job  }}
             path: |
               ${{ github.workspace }}/netmuxd/target/debug/netmuxd
             compression-level: 9
@@ -18,10 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt install qemu-user-static
-      - uses: ./altserver
+      - uses: ./${{  github.job  }}
       - uses: actions/upload-artifact@v4
         with:
-            name: altserver
+            name: ${{  github.job  }}
             path: |
               ${{ github.workspace }}/AltServer-Linux/AltServer-*
             compression-level: 9
@@ -30,10 +30,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt install qemu-user-static
-      - uses: ./wheel
+      - uses: ./${{  github.job  }}
       - uses: actions/upload-artifact@v4
         with:
-            name: wheel
+            name: ${{  github.job  }}
             path: |
               ${{ github.workspace }}/whl/*
             compression-level: 9
