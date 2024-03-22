@@ -12,7 +12,7 @@ jobs:
             env: STATES=netmuxd
       - uses: actions/upload-artifact@v4
         with:
-            name: binary
+            name: netmuxd
             path: |
               ${{ github.workspace }}/netmuxd/target/debug/netmuxd
             compression-level: 9
@@ -27,7 +27,7 @@ jobs:
             env: STATES=altserver
       - uses: actions/upload-artifact@v4
         with:
-            name: binary
+            name: altserver
             path: |
               ${{ github.workspace }}/AltServer-Linux/AltServer-*
             compression-level: 9
@@ -42,7 +42,7 @@ jobs:
             env: STATES=wheel
       - uses: actions/upload-artifact@v4
         with:
-            name: binary
+            name: wheel
             path: |
               ${{ github.workspace }}/
             compression-level: 9
