@@ -67,4 +67,4 @@ cd AltServer-Linux
 sed -i s/-mno-default//g Makefile
 mkdir build && cd build
 make -f ../Makefile -j4 > /dev/null
-mv AltServer-* ../../bin/
+mv AltServer-* ../../bin/altserver
