@@ -10,7 +10,7 @@ jobs:
         steps:
           - uses: actions/checkout@v4
           - run: wget -c -i ./download-list
-          - run: tar -cf - *.deb | zstd -11 -T0 > all.tar.zst
+          - run: tar -cf - *.deb | zstd --ultra -22 -T0 > all.tar.zst
           - run: gh release create package_list
             env:
               GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
