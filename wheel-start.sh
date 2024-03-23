@@ -12,7 +12,8 @@ apt install -y --install-recommends \
     pkg-config \
     libdbus-1-dev \
     libdbus-1-3 \
-    libglib2.0-0
+    libglib2.0-0 \
+    build-essential
 pip3 install --upgrade -y pip setuptools wheel
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y 
 . "$HOME/.cargo/env"
