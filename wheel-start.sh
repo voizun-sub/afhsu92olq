@@ -8,7 +8,8 @@ apt install -y \
     python3-cvxopt \
     python3-freetype \
     python3-hdf* \
-    cmake
+    cmake \
+    pkg-config
 pip3 install --upgrade -y pip setuptools wheel
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y 
 . "$HOME/.cargo/env"
