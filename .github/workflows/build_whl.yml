@@ -1,0 +1,20 @@
+name: Build whl
+on:
+    workflow_dispatch:
+
+jobs:
+  wheel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt install qemu-user-static
+      - uses: docker://linux/arm64/v8/ubuntu:mantic
+        with:
+          entrypoint: ""
+          args: bash -c "wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/wheel-start.sh -O start.sh && bash ./start.sh"
+      - run: cd ${{ github.workspace }}/wheel && tar -cf - ./* | zstd -ultra -22 -T0 > ../libimobiledevice.whl.tar.zst
+      - uses: actions/upload-artifact@v4
+        with:
+            name: wheel
+            path: ${{ github.workspace }}/libimobiledevice.whl.tar.zst
+            compression-level: 0
