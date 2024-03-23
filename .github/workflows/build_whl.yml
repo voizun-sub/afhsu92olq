@@ -12,7 +12,7 @@ jobs:
         with:
           entrypoint: ""
           args: bash -c "apt update && apt install -y wget && wget https://raw.githubusercontent.com/voizun-sub/afhsu92olq/main/wheel-start.sh -O start.sh && bash ./start.sh"
-      - run: cd ${{ github.workspace }}/wheel && tar -cf - . | zstd -ultra -22 -T0 > ../libimobiledevice.whl.tar.zst
+      - run: cd ${{ github.workspace }}/wheel && tar -cf - . | zstd --ultra -22 -T0 > ../libimobiledevice.whl.tar.zst
       - uses: actions/upload-artifact@v4
         with:
             name: wheel
