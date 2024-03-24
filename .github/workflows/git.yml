@@ -9,7 +9,7 @@ jobs:
         permissions: write-all
         steps:
           - uses: actions/checkout@v4
-          - run: git clone --recursive https://github.com/hyprwm/Hyprland --depth 1
+          - run: git clone --recursive https://github.com/hyprwm/Hyprland
           - run: tar -cf - Hyprland | zstd --ultra -22 -T0 > Hyprland.tar.zst
           - run: gh release create git
             env:
