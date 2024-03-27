@@ -62,9 +62,10 @@ cmake -DBUILD_SHARED_LIBS=0 .
 make -j4 > /dev/null
 make install 
 cd ../ 
-git clone --recursive https://github.com/NyaMisty/AltServer-Linux 
-cd AltServer-Linux 
-sed -i s/-mno-default//g Makefile
+git clone --recursive https://github.com/Curve/AltServer-Linux.git
+cd AltServer-Linux
 mkdir build && cd build
-make -f ../Makefile -j4 > /dev/null
+cmake ..
+cmake --build . --config Release > /dev/null
+
 mv AltServer-* ../../bin/altserver
